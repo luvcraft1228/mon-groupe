@@ -55,7 +55,7 @@ let characters = [
     classes: ["barbarian", "war chief"],
   },
 ];
-
+//writeToLocalStorage();
 /*---- verification de premiere utilisation ----*/
 if (characterStorage.getItem("characters") == null) {
     alert("null");
