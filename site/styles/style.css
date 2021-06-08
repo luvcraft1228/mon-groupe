@@ -85,9 +85,27 @@ table img{
     margin-left: 5%;
     border:1px solid grey;
 }
-
+.deleteRow{
+    text-align:center;
+    width: 90;
+    padding:30px;
+    font-size: large;
+    font-weight: bold;
+}
 /* validation */
 
 .invalid{
     border: solid red 2px;
 }
+.red {
+    background-color: red;
+    float:right;
+}
+.no{
+    color:red;
+}
+.yes{
+    color:green;
+}
+
+
