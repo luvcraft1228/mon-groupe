@@ -1,55 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/style.css">
-    <script src="https://kit.fontawesome.com/764f1321f3.js" crossorigin="anonymous"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Aladin&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/style.css" />
+    <script
+      src="https://kit.fontawesome.com/764f1321f3.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="./data.js" defer></script>
     <script src="./script.js" defer></script>
     <title>David Brais, Projet CRUD</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Mon groupe <button onclick="resetDb()">Reset</button></h1>
-        
-        <div class="inputs" id="inputs">
-            <div class="left">
-                <input type="text" name="name" id="name" placeholder="Nom" required >
-                <input type="text" name="xp" id="xp" placeholder="XP"  required>
-                <input type="url" name="avatar-url" id="avatar-url" placeholder="lien vers l'avatar" required>
-            </div>
-            <div class="right">
-                <textarea name="classes" id="classes" cols="30" rows="5" placeholder="Classes ici, une par ligne "></textarea>
-                
-                <button id="submit" >Ajouter</button>
-                <button id="modify" class="hidden">Modifier</button>
-                <button id="modify" class="hidden red">Cancel</button>
-               
-                
-                
-            </div>
-        </div> <!--fin inputs-->
-        <div class="table">
-            <table>
-                <thead>
-                    <th>Avatar</th>
-                    <th>Nom</th>
-                    <th>Classes</th>
-                    <th>Niveau</th>
-                    <th>XP</th>
-                    <th>Prochain Niveau</th>
-                    <th>-</th>
-                    <th>-</th>
-                </thead>
-                <tbody>
-                     
-                </tbody>
-                 
-            </table>
-            
-        </div> <!--fin table-->
-    </div> <!--fin container-->
-</body>
+      <h1>Mon groupe </h1>
+
+      <div class="inputs" id="inputs">
+        <div class="left">
+          <input type="text" name="name" id="name" placeholder="Nom" required />
+          <input type="text" name="xp" id="xp" placeholder="XP" required />
+          <input
+            type="url"
+            name="avatar-url"
+            id="avatar-url"
+            placeholder="lien vers l'avatar"
+            required
+          />
+        </div>
+        <div class="right">
+          <textarea
+            name="classes"
+            id="classes"
+            cols="30"
+            rows="5"
+            placeholder="Classes ici, une par ligne "
+          ></textarea>
+          <buttons>
+            <button id="submit">Ajouter</button>
+            <button id="modify" class="hidden">Modifier</button>
+            <button id="modify" class="hidden red">Cancel</button>
+          </buttons>
+        </div>
+      </div>
+      <!--fin inputs-->
+      <div class="table">
+        <table>
+          <thead>
+            <th>Avatar</th>
+            <th>Nom</th>
+            <th>Classes</th>
+            <th>Niveau</th>
+            <th>XP</th>
+            <th>Prochain Niveau</th>
+            <th>-</th>
+            <th>-</th>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <button onclick="resetDb()">Reset</button>
+      <!--fin table-->
+    </div>
+    <!--fin container-->
+  </body>
 </html>

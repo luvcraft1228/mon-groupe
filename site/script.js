@@ -3,7 +3,7 @@ const nameInput = inputs[0];
 const xpInput = inputs[1];
 const avatarUrlInput = inputs[2];
 const classesInput = inputs[3];
-const buttons = document.querySelectorAll("#inputs button");
+const buttons = document.querySelectorAll("buttons>*");
 const submit = buttons[0];
 const modif = buttons[1];
 const cancel = buttons[2];
@@ -14,11 +14,11 @@ submit.addEventListener("click", readInputs);
 modif.addEventListener("click", commitChanges);
 cancel.addEventListener("click", cancelChanges);
 
-inputs.forEach(input=>input.addEventListener("input",writeCache));
+inputs.forEach((input) => input.addEventListener("input", writeCache));
 
 /*--- initialisation du tableau avec les donnee stockees ---*/
 loadCache();
-if(cache.modifMode) buttonToggle();
+if (cache.modifMode) buttonToggle();
 data.characters.forEach((element) => print(element));
 
 /*---- ajout d'un character a la liste ---- */
@@ -41,17 +41,29 @@ function writeInnerHTML(character) {
   let lvlCount = levelCount(character.xp);
   let lvl = lvlCount.lvl;
   let toNextLvl = (character.xp / lvlCount.xpAcc) * 100;
+  let htmlClasses = classesToHtml(character.classes);
+  console.log(htmlClasses);
+  let accordion = `
+    <div class="classes-header">
+      <p>${character.classes[0]}</p>
+      <i class="fas fa-chevron-down" onclick="extend(this)"></i>
+      </div>
+      <div class="classes hidden">
+       <i class="fas fa-chevron-up" onclick="extend(this)"></i>
+        ${htmlClasses}
+        </div>`;
   return `
-    <td><img src="${character.avatarUrl}" alt=""></td>
+ 
+  <td><img src="${character.avatarUrl}" alt=""></td>
     <td>${character.name}</td>
-    <td>${character.classes}</td>
+    <td>${accordion}</td>
     <td>${lvl}</td>
     <td>${character.xp}</td>
     <td><div class="progress-bar" ><div class="progress" style="width:${toNextLvl}%"></div></div></td>
     <td><i class="fas fa-cog" onclick="modify(this)"></i></td>
     <td><i class="fas fa-times"onclick="deleteRow(this)"></i></td>
     `;
-}
+} //<img src="${character.avatarUrl}" alt="">  
 
 /* ---- Lecture des entrees & appel fonction affichage ----*/
 function readInputs() {
@@ -74,10 +86,24 @@ function readInputs() {
 function classesParser() {
   let classString = classesInput.value;
   let classes = classString.split("\n");
+  
 
   return classes;
 }
-
+function classesToHtml(classes){
+  let classesHTML = "";
+  classes.forEach((c) => (classesHTML += `<p>${c}</p>`));
+  return classesHTML;
+}
+function extend(ele){
+  let affectedTd = ele.parentElement.parentElement;
+  console.log(affectedTd.children);
+  let classesHeader = affectedTd.children[0];
+  let classesContainer = affectedTd.children[1];
+ classesHeader.classList.toggle("hidden");
+ classesContainer.classList.toggle("hidden");
+ 
+}
 function clear() {
   inputs.forEach((input) => (input.value = ""));
 }
@@ -155,13 +181,15 @@ function modify(element) {
 
   clearErrors();
   modif.value = id;
-  cache.modifMode=true;
+  cache.modifMode = true;
   writeCache();
 }
 function cancelChanges() {
   clear();
   buttonToggle();
   modif.value = 0;
+  cache.modifMode = false;
+  writeCache();
 }
 function commitChanges() {
   let id = this.value;
@@ -203,12 +231,10 @@ function deleteRow(element) {
 }
 
 function confirmDelete(row) {
-    let name = getById(row.id).name;
-    return window.confirm(`Voulez-vous vraiment supprimer ${name}?`)
+  let name = getById(row.id).name;
+  return window.confirm(`Voulez-vous vraiment supprimer ${name}?`);
 }
-function validTrue(){
-
-}
+function validTrue() {}
 /*--- fonctions utiles ---*/
 function getById(id) {
   return data.characters.find((element) => element.id == id);
