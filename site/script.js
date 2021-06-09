@@ -14,8 +14,11 @@ submit.addEventListener("click", readInputs);
 modif.addEventListener("click", commitChanges);
 cancel.addEventListener("click", cancelChanges);
 
-/*--- initialisation du tableau avec les donnee stockees ---*/
+inputs.forEach(input=>input.addEventListener("input",writeCache));
 
+/*--- initialisation du tableau avec les donnee stockees ---*/
+loadCache();
+if(cache.modifMode) buttonToggle();
 data.characters.forEach((element) => print(element));
 
 /*---- ajout d'un character a la liste ---- */
@@ -64,11 +67,11 @@ function readInputs() {
     add(newCharacter);
     print(newCharacter);
     clear();
+    writeCache();
   }
 }
 
 function classesParser() {
-  //classes parser
   let classString = classesInput.value;
   let classes = classString.split("\n");
 
@@ -149,8 +152,11 @@ function modify(element) {
     classesInput.value += `${element}\n`;
   });
   buttonToggle();
+
   clearErrors();
   modif.value = id;
+  cache.modifMode=true;
+  writeCache();
 }
 function cancelChanges() {
   clear();
@@ -189,7 +195,7 @@ function modifyRow(id) {
 
 function deleteRow(element) {
   let elementToDelete = element.parentElement.parentElement;
-  if (confirmDelete(element)) {
+  if (confirmDelete(elementToDelete)) {
     deleteById(elementToDelete.id);
     elementToDelete.remove();
     writeToLocalStorage();
@@ -198,7 +204,7 @@ function deleteRow(element) {
 
 function confirmDelete(row) {
     let name = getById(row.id).name;
-    window.prompt(`Voulez-vous vraiment supprimer ${name}?`)
+    return window.confirm(`Voulez-vous vraiment supprimer ${name}?`)
 }
 function validTrue(){
 

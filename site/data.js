@@ -59,7 +59,43 @@ function writeToLocalStorage() {
   characterStorage.setItem("data", dataSerialized);
 }
 
+
+let cache = {
+  nom:null,
+  xp:null,
+  avatar:null,
+  classes:null,
+  bouton:null,
+  modifMode : false
+}
+function writeCache(){
+  cache.name = nameInput.value;
+  cache.xp = xpInput.value;
+  cache.avatar = avatarUrlInput.value;
+  cache.classes = classesInput.value;
+  cache.bouton = modif.value;
+  let cacheString = JSON.stringify(cache);
+  characterStorage.setItem("cache",cacheString);
+}
+
+
+
+function loadCache(){
+  
+  cacheString = characterStorage.getItem("cache");
+  if(cacheString != null){
+
+    cache = JSON.parse(cacheString);
+    nameInput.value = cache.name;
+    xpInput.value = cache.xp;
+    avatarUrlInput.value = cache.avatar;
+    classesInput.value = cache.classes;
+    modif.value = cache.bouton;
+  }
+}
+
 function resetDb(){
   characterStorage.removeItem("data");
+  characterStorage.removeItem("cache");
   location.reload();
 }
