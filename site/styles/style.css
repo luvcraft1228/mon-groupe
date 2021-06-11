@@ -52,6 +52,16 @@ button{
     padding: 5px;
     width:70px;
     filter: drop-shadow(5px 5px 4px #000000); 
+    cursor: pointer;
+}
+
+button:active{
+    transform: translate(2px,2px);
+    filter: drop-shadow(1px 1px 4px #000000);
+}
+
+i{
+    cursor: pointer;
 }
 
 

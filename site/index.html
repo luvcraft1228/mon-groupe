@@ -22,7 +22,7 @@
       <div class="inputs" id="inputs">
         <div class="left">
           <input type="text" name="name" id="name" placeholder="Nom" required />
-          <input type="text" name="xp" id="xp" placeholder="XP" required />
+          <input type="text" name="xp" id="xp" placeholder="XP" max="100000" required />
           <input
             type="url"
             name="avatar-url"
@@ -41,8 +41,8 @@
           ></textarea>
           <buttons>
             <button id="submit">Ajouter</button>
-            <button id="modify" class="hidden">Modifier</button>
-            <button id="modify" class="hidden red">Cancel</button>
+            <button id="commit" class="hidden">Modifier</button>
+            <button id="cancel" class="hidden red">Cancel</button>
           </buttons>
         </div>
       </div>
@@ -53,7 +53,7 @@
             <th>Avatar</th>
             <th>Nom</th>
             <th>Classes</th>
-            <th>Niveau</th>
+            <th >Niveau  <i class="fas fa-sort"id="orderByLevel"></i></th>
             <th>XP</th>
             <th>Prochain Niveau</th>
             <th>-</th>

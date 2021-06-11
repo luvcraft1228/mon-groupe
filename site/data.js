@@ -45,7 +45,7 @@ let data = {
     },
   ],
 };
-console.log(characterStorage);
+
 //writeToLocalStorage();
 /*---- verification de premiere utilisation ----*/
 if (characterStorage.getItem("data") == null) {
@@ -59,14 +59,15 @@ function writeToLocalStorage() {
   characterStorage.setItem("data", dataSerialized);
 }
 
-
 let cache = {
   nom:null,
   xp:null,
   avatar:null,
   classes:null,
   bouton:null,
-  modifMode : false
+  modifMode : false,
+  orderBy: 0,
+  disable: false
 }
 function writeCache(){
   cache.name = nameInput.value;
@@ -91,6 +92,7 @@ function loadCache(){
     avatarUrlInput.value = cache.avatar;
     classesInput.value = cache.classes;
     modif.value = cache.bouton;
+   
   }
 }
 
