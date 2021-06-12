@@ -88,7 +88,8 @@ function print(character) {
 function writeInnerHTML(character) {
   let lvlCount = levelCount(character.xp);
   let lvl = lvlCount.lvl;
-  let toNextLvl = (character.xp / lvlCount.xpAcc) * 100;
+  let xpPreviousLvl = lvlCount.xpAcc - lvl*1000; 
+  let lvlPercent = ((character.xp-xpPreviousLvl) / (lvl*1000)) * 100;
   let htmlClasses = classesToHtml(character.classes);
 
   let accordion = `
@@ -107,7 +108,7 @@ function writeInnerHTML(character) {
     <td>${accordion}</td>
     <td>${lvl}</td>
     <td>${character.xp}</td>
-    <td><div class="progress-bar" ><div class="progress" style="width:${toNextLvl}%"></div></div></td>
+    <td><div class="progress-bar" ><div class="progress" style="width:${lvlPercent}%"></div></div></td>
     <td><i id = "modify" class="fas fa-cog" onclick="modify(this)"></i></td>
     <td><i id = "delete" class="fas fa-times"onclick="deleteRow(this)" ></i></td>
     `;
@@ -178,21 +179,26 @@ function validateXp() {
 }
 
 function validateInputs() {
+  
+
   if (!nameInput.reportValidity()) {
     nameInput.classList.add("invalid");
     return false;
   } else nameInput.classList.remove("invalid");
-  if (!xpInput.reportValidity() || xpInput.value > 100000) {
+  if (!xpInput.reportValidity() ) {
     xpInput.classList.add("invalid");
     return false;
   } else xpInput.classList.remove("invalid");
-
+  
   if (!avatarUrlInput.value.match(urlValidation)) {
     avatarUrlInput.classList.add("invalid");
     return false;
   } else avatarUrlInput.classList.remove("invalid");
   return true;
+ 
+
 }
+
 
 ///Compte le niveau auquel le personnage est rendu par
 ///rapport au nombre d'xp accumule
@@ -204,6 +210,7 @@ function levelCount(xp) {
   };
   do {
     count.xpAcc += count.lvl * 1000;
+    console.log(count);
     if (count.xpAcc > xp) return count;
     count.lvl++;
   } while (count.xpAcc <= xp);
@@ -232,7 +239,7 @@ function modify(element) {
 }
 
 //Dirty
-inputs.forEach((i) => i.addEventListener("change", isDirty));
+inputs.forEach((i) => i.addEventListener("input", isDirty));
 
 function isDirty() {
   if (modif.disabled == true) modif.disabled = false;
